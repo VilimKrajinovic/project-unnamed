@@ -1,4 +1,7 @@
-﻿{
+{
+    "editor.formatOnSave": true,
+    "csharpfixformat.style.braces.onSameLine": true,
+    "csharpfixformat.style.spaces.beforeParenthesis": false,
     "files.exclude":
     {
         "**/.DS_Store":true,
