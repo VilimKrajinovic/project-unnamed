@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour {
     private float forwardAngle;
     private Vector3 forwardDirection;
 
+    private float jumpSpeed = 2.5f;
+    private float gravityForce = 9.81f;
+    private float upVelocity;
+
     void Update() {
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical")).normalized;
 
@@ -17,10 +21,9 @@ public class PlayerMovement : MonoBehaviour {
         forwardDirection = CalculateForwardDirection(forwardAngle);
         if (moveDirection.magnitude > 0.1) {
             ChangeDirectionToForwardAngle(ref moveDirection, forwardAngle);
-            Debug.DrawRay(transform.position, CalculateForwardDirection(forwardAngle), Color.green);
-            Debug.DrawRay(transform.position, moveDirection, Color.red);
-            MoveTowards(moveDirection);
         }
+        HandleJump(ref moveDirection);
+        MoveTowards(moveDirection);
     }
     private float GetForwardAngle() {
         if (IsRightMouseButtonHeld()) {
@@ -36,6 +39,14 @@ public class PlayerMovement : MonoBehaviour {
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 0.1f);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+
+    private void HandleJump(ref Vector3 moveDirection) {
+        if (Input.GetButtonDown("Jump") && characterController.isGrounded) {
+            upVelocity = jumpSpeed;
+        }
+        upVelocity -= gravityForce * Time.deltaTime;
+        moveDirection.y = upVelocity;
     }
 
     private void MoveTowards(Vector3 direction) {
