@@ -11,25 +11,37 @@ public class CustomTerrain : MonoBehaviour {
     public Texture2D heightMapImage;
     public Vector3 heightMapScale = new Vector3(1, 1, 1);
 
+    public bool shouldReset = true;
+
     public float perlinXScale = 0.01f;
     public float perlinYScale = 0.01f;
     public int perlinOffsetX = 0;
     public int perlinOffsetY = 0;
+    public int perlinOctaves = 3;
+    public float perlinPersistance = 8;
+    public float perlinHeightScale = 0.09f;
 
     public Terrain terrain;
     public TerrainData terrainData;
 
+    private float[, ] GetHeightMap() {
+        if (shouldReset) {
+            return new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
+        }
+        return terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+    }
+
     public void Perlin() {
-        float[, ] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        float[, ] heightMap = GetHeightMap();
         for (int y = 0; y < terrainData.heightmapResolution; y++) {
             for (int x = 0; x < terrainData.heightmapResolution; x++) {
-                heightMap[x, y] = Mathf.PerlinNoise((x + perlinOffsetX) * perlinXScale, (y + perlinOffsetY) * perlinYScale);
+                heightMap[x, y] += Utils.fBM((x + perlinOffsetX) * perlinXScale, (y + perlinOffsetY) * perlinYScale, perlinOctaves, perlinPersistance) * perlinHeightScale;
             }
         }
         terrainData.SetHeights(0, 0, heightMap);
     }
     public void RandomTerrain() {
-        float[, ] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        float[, ] heightMap = GetHeightMap();
         for (int x = 0; x < terrainData.heightmapResolution; x++) {
             for (int y = 0; y < terrainData.heightmapResolution; y++) {
                 heightMap[x, y] += Random.Range(randomHeightRange.x, randomHeightRange.y);
@@ -39,10 +51,10 @@ public class CustomTerrain : MonoBehaviour {
     }
 
     public void LoadTexture() {
-        float[, ] heightMap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        float[, ] heightMap = GetHeightMap();
         for (int x = 0; x < terrainData.heightmapResolution; x++) {
             for (int z = 0; z < terrainData.heightmapResolution; z++) {
-                heightMap[x, z] = heightMapImage.GetPixel((int) (x * heightMapScale.x), (int) (z * heightMapScale.z)).grayscale * heightMapScale.y;
+                heightMap[x, z] += heightMapImage.GetPixel((int) (x * heightMapScale.x), (int) (z * heightMapScale.z)).grayscale * heightMapScale.y;
             }
         }
         terrainData.SetHeights(0, 0, heightMap);

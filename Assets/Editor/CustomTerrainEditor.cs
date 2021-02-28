@@ -10,6 +10,7 @@ using UnityEngine;
 [CanEditMultipleObjects]
 public class CustomTerrainEditor : Editor {
 
+    SerializedProperty shouldReset;
     SerializedProperty randomHeightRange;
     SerializedProperty heightMapScale;
     SerializedProperty heightMapImage;
@@ -17,11 +18,15 @@ public class CustomTerrainEditor : Editor {
     SerializedProperty perlinYScale;
     SerializedProperty perlinOffsetX;
     SerializedProperty perlinOffsetY;
+    SerializedProperty perlinOctaves;
+    SerializedProperty perlinPersistance;
+    SerializedProperty perlinHeightScale;
 
     bool showRandom = false;
     bool showLoadHeights = false;
     bool showPerlin = false;
     private void OnEnable() {
+        shouldReset = serializedObject.FindProperty("shouldReset");
         randomHeightRange = serializedObject.FindProperty("randomHeightRange");
         heightMapScale = serializedObject.FindProperty("heightMapScale");
         heightMapImage = serializedObject.FindProperty("heightMapImage");
@@ -29,11 +34,16 @@ public class CustomTerrainEditor : Editor {
         perlinYScale = serializedObject.FindProperty("perlinYScale");
         perlinOffsetX = serializedObject.FindProperty("perlinOffsetX");
         perlinOffsetY = serializedObject.FindProperty("perlinOffsetY");
+        perlinOctaves = serializedObject.FindProperty("perlinOctaves");
+        perlinPersistance = serializedObject.FindProperty("perlinPersistance");
+        perlinHeightScale = serializedObject.FindProperty("perlinHeightScale");
     }
 
     public override void OnInspectorGUI() {
         serializedObject.Update();
         CustomTerrain terrain = (CustomTerrain) target;
+
+        EditorGUILayout.PropertyField(shouldReset);
 
         showRandom = EditorGUILayout.Foldout(showRandom, "Random");
         if (showRandom) {
@@ -64,12 +74,14 @@ public class CustomTerrainEditor : Editor {
                         new Field { Property = perlinXScale, Min = 0, Max = 1, SliderType = SliderType.FLOAT },
                         new Field { Property = perlinYScale, Min = 0, Max = 1, SliderType = SliderType.FLOAT },
                         new Field { Property = perlinOffsetX, Min = 0, Max = 10000, SliderType = SliderType.INT },
-                        new Field { Property = perlinOffsetY, Min = 0, Max = 10000, SliderType = SliderType.INT }
+                        new Field { Property = perlinOffsetY, Min = 0, Max = 10000, SliderType = SliderType.INT },
+                        new Field { Property = perlinOctaves, Min = 1, Max = 10, SliderType = SliderType.INT },
+                        new Field { Property = perlinPersistance, Min = 0.1f, Max = 10, SliderType = SliderType.FLOAT },
+                        new Field { Property = perlinHeightScale, Min = 0, Max = 1, SliderType = SliderType.FLOAT },
                     },
                     Buttons = new Dictionary<string, Action> { { "Generate perlin terrain", terrain.Perlin } }
             });
         }
-
         RenderDivider();
         if (GUILayout.Button("Zero out terrain")) {
             terrain.ZeroOut();

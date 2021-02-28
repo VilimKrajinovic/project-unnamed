@@ -405,7 +405,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 850644386}
-  m_LocalRotation: {x: 0.032664247, y: 0.0000000129209905, z: -4.2228027e-10, w: 0.9994664}
+  m_LocalRotation: {x: 0.03266425, y: 1e-45, z: -0, w: 0.9994664}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -490,7 +490,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.050790656, y: 0.0000000299955, z: -0.0000000015254599, w: 0.9987093}
+  m_LocalRotation: {x: 0.05079067, y: -0.000000004296044, z: 2.1848091e-10, w: 0.9987093}
   m_LocalPosition: {x: 0, y: 3.5, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1050,7 +1050,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504488485}
-  m_LocalRotation: {x: 0.05079064, y: 0.000000029763862, z: -0.0000000015136793, w: 0.9987094}
+  m_LocalRotation: {x: 0.05079066, y: -0.0000000021480218, z: 1.0924045e-10, w: 0.9987093}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1162,9 +1162,10 @@ GameObject:
   - component: {fileID: 1703378778}
   - component: {fileID: 1703378777}
   - component: {fileID: 1703378776}
+  - component: {fileID: 1703378779}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1227,6 +1228,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703378779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703378775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3caf82014466e0e438038d44897f4421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomHeightRange: {x: 0, y: 0.1}
+  heightMapImage: {fileID: 2800000, guid: 85357edcde6b5c54ba92703276b3c5bd, type: 3}
+  heightMapScale: {x: 2, y: 0.5, z: 2}
+  perlinXScale: 0.01
+  perlinYScale: 0.01
+  perlinOffsetX: 0
+  perlinOffsetY: 100
+  perlinOctaves: 3
+  perlinPersistance: 8
+  perlinHeightScale: 0.05
+  terrain: {fileID: 1703378777}
+  terrainData: {fileID: 15600000, guid: 7880dd85de869b943baa92bde2d303e9, type: 2}
 --- !u!1 &1753577135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,8 +1413,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961048804}
-  m_LocalRotation: {x: 0.15768851, y: -0.0000000012952567, z: 2.0683484e-10, w: 0.9874889}
-  m_LocalPosition: {x: 0, y: 2.824874, z: 1.7522392}
+  m_LocalRotation: {x: 0.068948284, y: 0.000000017165437, z: -0.0000000011863507,
+    w: 0.9976202}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1220746120}
