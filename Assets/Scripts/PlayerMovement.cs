@@ -26,10 +26,7 @@ public class PlayerMovement : MonoBehaviour {
         MoveTowards(moveDirection);
     }
     private float GetForwardAngle() {
-        if (IsRightMouseButtonHeld()) {
-            return GetCameraRotation();
-        }
-        return forwardAngle;
+        return GetCameraRotation();
     }
     private Vector3 CalculateForwardDirection(float forwardAngle) {
         return Quaternion.AngleAxis(forwardAngle, Vector3.up) * Vector3.forward;
@@ -56,9 +53,5 @@ public class PlayerMovement : MonoBehaviour {
     private float GetCameraRotation() {
         Vector3 forward = Vector3.forward;
         return Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-    }
-
-    private bool IsRightMouseButtonHeld() {
-        return Input.GetMouseButton(1);
     }
 }
