@@ -1243,13 +1243,31 @@ MonoBehaviour:
   randomHeightRange: {x: 0, y: 0.1}
   heightMapImage: {fileID: 2800000, guid: 85357edcde6b5c54ba92703276b3c5bd, type: 3}
   heightMapScale: {x: 2, y: 0.5, z: 2}
-  perlinXScale: 0.01
-  perlinYScale: 0.01
-  perlinOffsetX: 0
-  perlinOffsetY: 100
-  perlinOctaves: 3
-  perlinPersistance: 8
-  perlinHeightScale: 0.05
+  shouldReset: 1
+  perlinXScale: 0.04
+  perlinYScale: 0.002
+  perlinOffsetX: 1
+  perlinOffsetY: 1
+  perlinOctaves: 6
+  perlinPersistance: 1.47
+  perlinHeightScale: 0.464
+  perlinParameters:
+  - perlinXScale: 0.01
+    perlinYScale: 0.01
+    perlinOffsetX: 0
+    perlinOffsetY: 0
+    perlinOctaves: 3
+    perlinPersistance: 8
+    perlinHeightScale: 0.09
+    remove: 0
+  - perlinXScale: 0.001
+    perlinYScale: 0.001
+    perlinOffsetX: 0
+    perlinOffsetY: 0
+    perlinOctaves: 3
+    perlinPersistance: 8
+    perlinHeightScale: 0.4
+    remove: 0
   terrain: {fileID: 1703378777}
   terrainData: {fileID: 15600000, guid: 7880dd85de869b943baa92bde2d303e9, type: 2}
 --- !u!1 &1753577135
@@ -1413,8 +1431,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961048804}
-  m_LocalRotation: {x: 0.068948284, y: 0.000000017165437, z: -0.0000000011863507,
-    w: 0.9976202}
+  m_LocalRotation: {x: 0.06894826, y: -0.00000001716543, z: 0.00000000118635, w: 0.9976202}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
