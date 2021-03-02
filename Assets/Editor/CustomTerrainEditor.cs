@@ -28,6 +28,7 @@ public class CustomTerrainEditor : Editor {
     SerializedProperty voronoiDropoff;
     SerializedProperty voronoiMinHeight;
     SerializedProperty voronoiMaxHeight;
+    SerializedProperty voronoiType;
 
     bool showRandom = false;
     bool showLoadHeights = false;
@@ -53,6 +54,7 @@ public class CustomTerrainEditor : Editor {
         voronoiDropoff = serializedObject.FindProperty("voronoiDropoff");
         voronoiMinHeight = serializedObject.FindProperty("voronoiMinHeight");
         voronoiMaxHeight = serializedObject.FindProperty("voronoiMaxHeight");
+        voronoiType = serializedObject.FindProperty("voronoiType");
     }
 
     public override void OnInspectorGUI() {
@@ -128,6 +130,7 @@ public class CustomTerrainEditor : Editor {
                         new Field { Property = voronoiDropoff, Min = 0, Max = 10f, SliderType = SliderType.FLOAT },
                         new Field { Property = voronoiMaxHeight, Min = 0, Max = 1f, SliderType = SliderType.FLOAT },
                         new Field { Property = voronoiMinHeight, Min = 0, Max = 1f, SliderType = SliderType.FLOAT },
+                        new Field { Property = voronoiType }
                     },
                     Buttons = new Dictionary<string, Action> { { "Generate voronoi", terrain.Voronoi } }
             });

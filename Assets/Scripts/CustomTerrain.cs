@@ -44,6 +44,8 @@ public class CustomTerrain : MonoBehaviour {
     public float voronoiDropoff = 0.6f;
     public float voronoiMinHeight = 0;
     public float voronoiMaxHeight = 0.4f;
+    public enum VoronoiType { Linear, Power, Combined }
+    public VoronoiType voronoiType = VoronoiType.Linear;
 
     public Terrain terrain;
     public TerrainData terrainData;
@@ -58,7 +60,9 @@ public class CustomTerrain : MonoBehaviour {
                 Random.Range(0, terrainData.heightmapResolution)
             );
 
-            heightMap[(int) peak.x, (int) peak.z] += peak.y;
+            if (heightMap[(int) peak.x, (int) peak.z] < peak.y)
+                heightMap[(int) peak.x, (int) peak.z] = peak.y;
+            else continue;
 
             Vector2 peakLocation = new Vector2(peak.x, peak.z);
             float maxDistance = Vector2.Distance(new Vector2(0, 0), new Vector2(terrainData.heightmapResolution, terrainData.heightmapResolution));
@@ -67,7 +71,20 @@ public class CustomTerrain : MonoBehaviour {
                 for (int x = 0; x < terrainData.heightmapResolution; x++) {
                     if (!(x == peak.x && y == peak.y)) {
                         float distanceToPeak = Vector2.Distance(peakLocation, new Vector2(x, y)) / maxDistance;
-                        float height = peak.y - distanceToPeak * voronoiFalloff - Mathf.Pow(distanceToPeak, voronoiDropoff);
+                        float height;
+
+                        switch (voronoiType) {
+                            case VoronoiType.Combined:
+                                height = peak.y - distanceToPeak * voronoiFalloff - Mathf.Pow(distanceToPeak, voronoiDropoff);
+                                break;
+                            case VoronoiType.Power:
+                                height = peak.y - Mathf.Pow(distanceToPeak, voronoiDropoff) * voronoiFalloff;
+                                break;
+                            default:
+                                height = peak.y - distanceToPeak * voronoiFalloff;
+                                break;
+                        }
+
                         if (heightMap[x, y] < height)
                             heightMap[x, y] = height;
                     }
