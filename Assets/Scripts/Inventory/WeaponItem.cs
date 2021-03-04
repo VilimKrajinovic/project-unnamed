@@ -1,9 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Weapon Item")]
-public class WeaponItem : Item {
+namespace VK {
+    [CreateAssetMenu(menuName = "Items/Weapon Item")]
+    public class WeaponItem : Item {
 
-    public GameObject modelPrefab;
-    public bool isUnarmed;
+        public GameObject modelPrefab;
+        public bool isUnarmed;
 
+    }
 }
