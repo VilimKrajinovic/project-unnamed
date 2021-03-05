@@ -7,5 +7,9 @@ namespace VK {
         public GameObject modelPrefab;
         public bool isUnarmed;
 
+        [Header("One Handed Attack Animations")]
+        public string OneHandLightAttack_1;
+        public string OneHandHeavyAttack_1;
+
     }
 }

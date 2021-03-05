@@ -47,6 +47,8 @@ namespace VK {
         private void LateUpdate() {
             inputHandler.rollFlag = false;
             inputHandler.sprintFlag = false;
+            inputHandler.lightAttackInput = false;
+            inputHandler.heavyAttackInput = false;
             if (isInAir) {
                 playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
             }

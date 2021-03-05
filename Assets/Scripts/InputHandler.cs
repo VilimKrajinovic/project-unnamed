@@ -10,17 +10,26 @@ namespace VK {
         public float mouseX;
         public float mouseY;
         public bool b_Input;
+        public bool lightAttackInput;
+        public bool heavyAttackInput;
         public bool rollFlag;
         public bool sprintFlag;
         public float rollInputTimer;
 
         PlayerControls inputActions;
+        PlayerAttacker playerAttacker;
+        PlayerInventory playerInventory;
         Vector2 movementInput;
         Vector2 cameraInput;
 
+        private void Awake() {
+            playerAttacker = GetComponent<PlayerAttacker>();
+            playerInventory = GetComponent<PlayerInventory>();
+        }
         public void TickInput(float delta) {
             MoveInput(delta);
             HandleRollInput(delta);
+            HandleAttackInput(delta);
         }
         private void MoveInput(float delta) {
             horizontal = movementInput.x;
@@ -44,6 +53,19 @@ namespace VK {
                 rollInputTimer = 0;
             }
         }
+
+        private void HandleAttackInput(float delta) {
+            inputActions.PlayerActions.LightAttack.performed += i => lightAttackInput = true;
+            inputActions.PlayerActions.HeavyAttack.performed += i => heavyAttackInput = true;
+
+            if (lightAttackInput) {
+                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            }
+            if (heavyAttackInput) {
+                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
+            }
+        }
+
         private void OnEnable() {
             if (inputActions == null) {
                 inputActions = new PlayerControls();
