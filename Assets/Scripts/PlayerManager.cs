@@ -10,6 +10,7 @@ namespace VK {
         PlayerLocomotion playerLocomotion;
 
         public bool isInteracting;
+
         [Header("Player flags")]
         public bool isSprinting;
         public bool isInAir;
@@ -46,7 +47,6 @@ namespace VK {
         private void LateUpdate() {
             inputHandler.rollFlag = false;
             inputHandler.sprintFlag = false;
-            isSprinting = inputHandler.b_Input;
             if (isInAir) {
                 playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
             }

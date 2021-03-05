@@ -479,7 +479,7 @@ MonoBehaviour:
   targetTransform: {fileID: 1091063532}
   cameraTransform: {fileID: 705966486}
   cameraPivotTransform: {fileID: 403412371}
-  lookSpeed: 0.1
+  lookSpeed: 0.05
   followSpeed: 0.1
   pivotSpeed: 0.03
   minimumPivot: -35
@@ -592,6 +592,7 @@ MonoBehaviour:
   movementSpeed: 5
   sprintSpeed: 7
   rotationSpeed: 10
+  walkingSpeed: 2
   fallingSpeed: 45
 --- !u!136 &1091063535
 CapsuleCollider:
@@ -627,7 +628,6 @@ MonoBehaviour:
   b_Input: 0
   rollFlag: 0
   sprintFlag: 0
-  isInteracting: 0
   rollInputTimer: 0
 --- !u!114 &1091063537
 MonoBehaviour:

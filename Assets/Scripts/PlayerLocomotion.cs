@@ -34,6 +34,8 @@ namespace VK {
         [SerializeField]
         float rotationSpeed = 10;
         [SerializeField]
+        float walkingSpeed = 2f;
+        [SerializeField]
         float fallingSpeed = 100;
 
         private void Start() {
@@ -82,12 +84,18 @@ namespace VK {
             moveDirection.y = 0;
 
             float speed = movementSpeed;
-            if (inputHandler.sprintFlag) {
+            if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5) {
                 playerManager.isSprinting = true;
                 speed = sprintSpeed;
                 moveDirection *= speed;
             } else {
-                moveDirection *= speed;
+                if (inputHandler.moveAmount < 0.5) {
+                    moveDirection *= walkingSpeed;
+                    playerManager.isSprinting = false;
+                } else {
+                    moveDirection *= speed;
+                    playerManager.isSprinting = false;
+                }
             }
 
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
