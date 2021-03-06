@@ -33,26 +33,29 @@ namespace VK {
             canDoCombo = animator.GetBool("canDoCombo");
 
             inputHandler.TickInput(delta);
-            playerLocomotion.HandleMovement(delta);
+
             playerLocomotion.HandleRollingAndSprinting(delta);
-            playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+
         }
 
         private void FixedUpdate() {
+            float delta = Time.deltaTime;
+            playerLocomotion.HandleMovement(delta);
+            playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+        }
+
+        private void LateUpdate() {
+            inputHandler.rollFlag = false;
+            inputHandler.lightAttackInput = false;
+            inputHandler.heavyAttackInput = false;
+            inputHandler.leftQuickSlotInput = false;
+            inputHandler.rightQuickSlotInput = false;
+
             float delta = Time.deltaTime;
             if (cameraHandler != null) {
                 cameraHandler.FollowTarget(delta);
                 cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
             }
-        }
-
-        private void LateUpdate() {
-            inputHandler.rollFlag = false;
-            inputHandler.sprintFlag = false;
-            inputHandler.lightAttackInput = false;
-            inputHandler.heavyAttackInput = false;
-            inputHandler.leftQuickSlotInput = false;
-            inputHandler.rightQuickSlotInput = false;
             if (isInAir) {
                 playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
             }

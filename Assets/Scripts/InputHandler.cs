@@ -50,9 +50,10 @@ namespace VK {
 
         private void HandleRollInput(float delta) {
             b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
+            sprintFlag = b_Input;
             if (b_Input) {
                 rollInputTimer += delta;
-                sprintFlag = true;
+
             } else {
                 if (rollInputTimer > 0 && rollInputTimer < 0.5f) {
                     sprintFlag = false;

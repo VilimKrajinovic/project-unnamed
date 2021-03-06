@@ -586,9 +586,9 @@ MonoBehaviour:
   targetTransform: {fileID: 1091063532}
   cameraTransform: {fileID: 705966486}
   cameraPivotTransform: {fileID: 403412371}
-  lookSpeed: 0.05
+  lookSpeed: 0.01
   followSpeed: 0.1
-  pivotSpeed: 0.03
+  pivotSpeed: 0.01
   minimumPivot: -35
   maximumPivot: 35
   cameraSphereRadius: 0.2
@@ -743,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -604, y: 368}
+  m_AnchoredPosition: {x: -568, y: 345}
   m_SizeDelta: {x: 150, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &993316285
@@ -861,7 +861,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1091063534
@@ -924,7 +924,8 @@ MonoBehaviour:
   b_Input: 0
   lightAttackInput: 0
   heavyAttackInput: 0
-  keyboard_one: 0
+  rightQuickSlotInput: 0
+  leftQuickSlotInput: 0
   comboFlag: 0
   rollFlag: 0
   sprintFlag: 0
