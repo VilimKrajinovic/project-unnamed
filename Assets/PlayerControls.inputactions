@@ -166,6 +166,52 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Player Inventory",
+            "id": "724bb91f-2280-49a9-8177-0363dbd9474e",
+            "actions": [
+                {
+                    "name": "QuickSlotRight",
+                    "type": "Button",
+                    "id": "068e7aa6-1d15-47e6-920e-77692457ab91",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "QuickSlotLeft",
+                    "type": "Button",
+                    "id": "3f5b4de7-2213-4c66-a259-773127037ee4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d997bccd-b0e7-4e73-a65e-f1275b1d33cf",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QuickSlotRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "700d7561-edb4-48fc-9b79-3eaf015799ec",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QuickSlotLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

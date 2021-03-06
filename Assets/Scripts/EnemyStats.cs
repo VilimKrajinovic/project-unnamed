@@ -25,8 +25,7 @@ namespace VK {
         }
 
         public void TakeDamage(int damage) {
-            currentHealth -= damage;
-
+            currentHealth = currentHealth - damage;
             animator.Play("Damage_01");
 
             if (currentHealth <= 0) {

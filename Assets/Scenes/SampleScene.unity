@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 9238864}
   - component: {fileID: 9238868}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Damaging cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,13 +251,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56309784}
-  m_LocalRotation: {x: -0.010868453, y: 0.38624853, z: 0.9223231, w: 0.0037404299}
-  m_LocalPosition: {x: -0.0189, y: -0.0576, z: -0.0029}
+  m_LocalRotation: {x: -0.07321796, y: 0.12974705, z: 0.98881286, w: -0.007349163}
+  m_LocalPosition: {x: -0, y: -0.063, z: 0.029}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 857722339}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -45.445004, y: -1.401, z: 180.122}
+  m_LocalEulerAnglesHint: {x: -14.804001, y: -8.728001, z: 181.98799}
 --- !u!1 &403412370
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,16 +649,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 920479693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &920479695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -632, y: 385}
+  m_AnchoredPosition: {x: -604, y: 368}
   m_SizeDelta: {x: 150, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &993316285
@@ -905,6 +924,8 @@ MonoBehaviour:
   b_Input: 0
   lightAttackInput: 0
   heavyAttackInput: 0
+  keyboard_one: 0
+  comboFlag: 0
   rollFlag: 0
   sprintFlag: 0
   rollInputTimer: 0
@@ -922,6 +943,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightWeapon: {fileID: 11400000, guid: 5b385d039b4ab654e8804aac957ae74a, type: 2}
   leftWeapon: {fileID: 11400000, guid: 5b385d039b4ab654e8804aac957ae74a, type: 2}
+  unarmedWeapon: {fileID: 11400000, guid: 8453144b5d73acb4faf1338b5fd0d8f4, type: 2}
+  weaponsInRightHandSlots:
+  - {fileID: 11400000, guid: 5b385d039b4ab654e8804aac957ae74a, type: 2}
+  weaponsInLeftHandSlots:
+  - {fileID: 11400000, guid: 5b385d039b4ab654e8804aac957ae74a, type: 2}
+  currentRightWeaponIndex: -1
+  currentLeftWeaponIndex: -1
 --- !u!114 &1091063538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +966,7 @@ MonoBehaviour:
   isSprinting: 0
   isInAir: 0
   isGrounded: 0
+  canDoCombo: 0
 --- !u!114 &1091063539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,6 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33f052ea657fb7419b0a0408777357f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastAttack: 
 --- !u!114 &1091063540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,7 +1360,6 @@ GameObject:
   - component: {fileID: 1717702156}
   - component: {fileID: 1717702157}
   - component: {fileID: 1717702158}
-  - component: {fileID: 1717702159}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1398,25 +1427,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!95 &1717702159
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717702154}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a3d2ebd7f3e1b6244b325017b397057d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0b241f03a13b56149bfa443b12ab97ed, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1891814590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1598,11 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: a3d2ebd7f3e1b6244b325017b397057d, type: 3}
+    - target: {fileID: 5866666021909216657, guid: e49e12109255eed4f8e0ead9625e9510,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0b241f03a13b56149bfa443b12ab97ed, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e49e12109255eed4f8e0ead9625e9510, type: 3}
 --- !u!4 &1936112338 stripped

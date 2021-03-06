@@ -5,8 +5,9 @@ using UnityEngine;
 namespace VK {
     public class DamageCollider : MonoBehaviour {
         Collider[] damageColliders;
+        bool alreadyHit = false;
 
-        public int currentWeaponDamage;
+        public int currentWeaponDamage = 25;
         private void Awake() {
             damageColliders = GetComponentsInChildren<Collider>();
             foreach (Collider c in damageColliders) {
@@ -26,9 +27,15 @@ namespace VK {
             foreach (Collider c in damageColliders) {
                 c.enabled = false;
             }
+            alreadyHit = false;
         }
 
+        private void OnTriggerExit(Collider collision) {
+            alreadyHit = false;
+        }
         private void OnTriggerEnter(Collider collision) {
+            if (alreadyHit) return;
+            alreadyHit = true;
             if (collision.tag == "Player") {
                 PlayerStats playerStats = collision.GetComponent<PlayerStats>();
                 if (playerStats != null) {
@@ -37,11 +44,11 @@ namespace VK {
             }
             if (collision.tag == "Enemy") {
                 EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
+
                 if (enemyStats != null) {
                     enemyStats.TakeDamage(currentWeaponDamage);
                 }
             }
         }
-
     }
 }

@@ -179,6 +179,52 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Player Inventory"",
+            ""id"": ""724bb91f-2280-49a9-8177-0363dbd9474e"",
+            ""actions"": [
+                {
+                    ""name"": ""QuickSlotRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""068e7aa6-1d15-47e6-920e-77692457ab91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""QuickSlotLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f5b4de7-2213-4c66-a259-773127037ee4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d997bccd-b0e7-4e73-a65e-f1275b1d33cf"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSlotRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""700d7561-edb4-48fc-9b79-3eaf015799ec"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickSlotLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -192,6 +238,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_PlayerActions_Roll = m_PlayerActions.FindAction("Roll", throwIfNotFound: true);
         m_PlayerActions_LightAttack = m_PlayerActions.FindAction("Light Attack", throwIfNotFound: true);
         m_PlayerActions_HeavyAttack = m_PlayerActions.FindAction("Heavy Attack", throwIfNotFound: true);
+        // Player Inventory
+        m_PlayerInventory = asset.FindActionMap("Player Inventory", throwIfNotFound: true);
+        m_PlayerInventory_QuickSlotRight = m_PlayerInventory.FindAction("QuickSlotRight", throwIfNotFound: true);
+        m_PlayerInventory_QuickSlotLeft = m_PlayerInventory.FindAction("QuickSlotLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -327,6 +377,47 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+
+    // Player Inventory
+    private readonly InputActionMap m_PlayerInventory;
+    private IPlayerInventoryActions m_PlayerInventoryActionsCallbackInterface;
+    private readonly InputAction m_PlayerInventory_QuickSlotRight;
+    private readonly InputAction m_PlayerInventory_QuickSlotLeft;
+    public struct PlayerInventoryActions
+    {
+        private @PlayerControls m_Wrapper;
+        public PlayerInventoryActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @QuickSlotRight => m_Wrapper.m_PlayerInventory_QuickSlotRight;
+        public InputAction @QuickSlotLeft => m_Wrapper.m_PlayerInventory_QuickSlotLeft;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerInventory; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerInventoryActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerInventoryActions instance)
+        {
+            if (m_Wrapper.m_PlayerInventoryActionsCallbackInterface != null)
+            {
+                @QuickSlotRight.started -= m_Wrapper.m_PlayerInventoryActionsCallbackInterface.OnQuickSlotRight;
+                @QuickSlotRight.performed -= m_Wrapper.m_PlayerInventoryActionsCallbackInterface.OnQuickSlotRight;
+                @QuickSlotRight.canceled -= m_Wrapper.m_PlayerInventoryActionsCallbackInterface.OnQuickSlotRight;
+                @QuickSlotLeft.started -= m_Wrapper.m_PlayerInventoryActionsCallbackInterface.OnQuickSlotLeft;
+                @QuickSlotLeft.performed -= m_Wrapper.m_PlayerInventoryActionsCallbackInterface.OnQuickSlotLeft;
+                @QuickSlotLeft.canceled -= m_Wrapper.m_PlayerInventoryActionsCallbackInterface.OnQuickSlotLeft;
+            }
+            m_Wrapper.m_PlayerInventoryActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @QuickSlotRight.started += instance.OnQuickSlotRight;
+                @QuickSlotRight.performed += instance.OnQuickSlotRight;
+                @QuickSlotRight.canceled += instance.OnQuickSlotRight;
+                @QuickSlotLeft.started += instance.OnQuickSlotLeft;
+                @QuickSlotLeft.performed += instance.OnQuickSlotLeft;
+                @QuickSlotLeft.canceled += instance.OnQuickSlotLeft;
+            }
+        }
+    }
+    public PlayerInventoryActions @PlayerInventory => new PlayerInventoryActions(this);
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -337,5 +428,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnRoll(InputAction.CallbackContext context);
         void OnLightAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
+    }
+    public interface IPlayerInventoryActions
+    {
+        void OnQuickSlotRight(InputAction.CallbackContext context);
+        void OnQuickSlotLeft(InputAction.CallbackContext context);
     }
 }

@@ -10,7 +10,10 @@ namespace VK {
         DamageCollider leftHandDamageCollider;
         DamageCollider righHandtDamageCollider;
 
+        Animator animator;
+
         private void Awake() {
+            animator = GetComponent<Animator>();
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots) {
                 if (weaponSlot.isLeftHandSlot) {
@@ -25,9 +28,23 @@ namespace VK {
             if (isLeft) {
                 leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponDamageCollider();
+                #region  Handle legft weapon idle animations
+                if (weaponItem != null) {
+                    animator.CrossFade(weaponItem.leftHandIdleKatana, 0.2f);
+                } else {
+                    animator.CrossFade("Left Arm Empty", 0.2f);
+                }
+                #endregion
             } else {
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
+                #region  Handle right weapon idle animations
+                if (weaponItem != null) {
+                    animator.CrossFade(weaponItem.rightHandIdleKatana, 0.2f);
+                } else {
+                    animator.CrossFade("Right Arm Empty", 0.2f);
+                }
+                #endregion
             }
         }
 

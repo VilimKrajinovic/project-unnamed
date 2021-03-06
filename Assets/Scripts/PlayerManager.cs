@@ -15,6 +15,7 @@ namespace VK {
         public bool isSprinting;
         public bool isInAir;
         public bool isGrounded;
+        public bool canDoCombo;
 
         private void Awake() {
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -29,6 +30,7 @@ namespace VK {
             float delta = Time.deltaTime;
 
             isInteracting = animator.GetBool("isInteracting");
+            canDoCombo = animator.GetBool("canDoCombo");
 
             inputHandler.TickInput(delta);
             playerLocomotion.HandleMovement(delta);
@@ -49,6 +51,8 @@ namespace VK {
             inputHandler.sprintFlag = false;
             inputHandler.lightAttackInput = false;
             inputHandler.heavyAttackInput = false;
+            inputHandler.leftQuickSlotInput = false;
+            inputHandler.rightQuickSlotInput = false;
             if (isInAir) {
                 playerLocomotion.inAirTimer = playerLocomotion.inAirTimer + Time.deltaTime;
             }

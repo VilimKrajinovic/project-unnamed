@@ -65,6 +65,14 @@ namespace VK {
             animator.CrossFade(targetAnimation, 0.2f);
         }
 
+        public void EnableCombo() {
+            animator.SetBool("canDoCombo", true);
+        }
+
+        public void DisableCombo() {
+            animator.SetBool("canDoCombo", false);
+        }
+
         public void CanRotate() {
             canRotate = true;
         }
